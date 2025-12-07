@@ -81,11 +81,21 @@ pipeline {
         }
         success {
             echo 'SUCCESS: Artifact uploaded to Nexus.'
-            slackSend channel: '#jenkins', color: 'good', message: "SUCCESS: Job '${env.JOB_NAME}' (Build #${env.BUILD_NUMBER}) finished successfully! Artifact uploaded."
+            slackSend (
+                channel: '#jenkins', 
+                color: 'good', 
+                message: "SUCCESS: Job '${env.JOB_NAME}' (Build #${env.BUILD_NUMBER}) finished successfully!", 
+                tokenCredentialId: 'slacktoken' // Явно вказуємо ID токена
+            )
         }
         failure {
             echo 'FAILURE: Pipeline failed.'
-            slackSend channel: '#jenkins', color: 'danger', message: "FAILED: Job '${env.JOB_NAME}' (Build #${env.BUILD_NUMBER}) failed. Please check logs."
+            slackSend (
+                channel: '#jenkins', 
+                color: 'danger', 
+                message: "FAILED: Job '${env.JOB_NAME}' (Build #${env.BUILD_NUMBER}) failed.", 
+                tokenCredentialId: 'slacktoken'
+            )
         }
     }
 }
