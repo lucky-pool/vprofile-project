@@ -85,7 +85,7 @@ pipeline {
                 channel: '#jenkinscicd', 
                 color: 'good', 
                 message: "SUCCESS: Job '${env.JOB_NAME}' (Build #${env.BUILD_NUMBER}) finished successfully!", 
-                tokenCredentialId: 'slacktoken' // Явно вказуємо ID токена
+                tokenCredentialId: 'slacktoken' 
             )
         }
         failure {
