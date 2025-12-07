@@ -77,10 +77,15 @@ pipeline {
     
     post {
         always {
-            echo 'Pipeline completed.'
+            echo 'Pipeline finished.'
         }
         success {
-           echo 'SUCCESS: Artifact uploaded to Nexus.'
+            echo 'SUCCESS: Artifact uploaded to Nexus.'
+            slackSend channel: '#jenkins', color: 'good', message: "SUCCESS: Job '${env.JOB_NAME}' (Build #${env.BUILD_NUMBER}) finished successfully! Artifact uploaded."
+        }
+        failure {
+            echo 'FAILURE: Pipeline failed.'
+            slackSend channel: '#jenkins', color: 'danger', message: "FAILED: Job '${env.JOB_NAME}' (Build #${env.BUILD_NUMBER}) failed. Please check logs."
         }
     }
 }
